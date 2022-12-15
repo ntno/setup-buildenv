@@ -1,4 +1,5 @@
 name: setup-buildenv
+author: ntno
 description: Setup Comcast Buildenv Tool, buildenv, on GitHub Actions runners
 inputs:
   version:
@@ -6,5 +7,5 @@ inputs:
     required: false
     default: 0.5.7
 runs:
-  using: node12
+  using: node16
   main: dist/index.js
