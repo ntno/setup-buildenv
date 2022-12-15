@@ -6,10 +6,6 @@ inputs:
     description: Version of Comcast Buildenv Tool to install
     required: false
     default: 0.5.7
-  os: 
-    description: GitHub Actions runner Operating system [macos-latest, windows-latest, ubuntu-latest]
-    required: false
-    default: ubuntu-latest
 runs:
   using: node16
   main: dist/index.js
