@@ -1,10 +1,11 @@
-name: Tests
+name: Test Buildenv Install
+on: [push]
 
-on:
-  push:
-    branches:
-    - main
-  pull_request:
+# on:
+#   push:
+#     branches:
+#     - main
+#   pull_request:
 
 defaults:
   run:
@@ -12,7 +13,7 @@ defaults:
 
 jobs:
   test:
-    name: Test
+    name: Test Install
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
