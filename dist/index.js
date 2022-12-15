@@ -14,7 +14,7 @@ async function setup() {
     try {
         // Get version of tool to be installed
         const version = core.getInput('version');
-        console.log(`buildenv version to install: ${version}!`);
+        console.log(`buildenv version to install: ${version}`);
 
         // Download the specific version of the tool, e.g. as a tarball/zipball
         const download = getDownloadObject(version);
@@ -47,32 +47,43 @@ const path = __webpack_require__(622);
 
 // arch in [arm, x32, x64...] (https://nodejs.org/api/os.html#os_os_arch)
 // return value in [amd64, 386, arm]
-function mapArch(arch) {
+function mapArch(os_arch) {
     const mappings = {
         x32: '386',
         x64: 'amd64',
         arm64: 'arm64'
     };
-    return mappings[arch] || arch;
+    return mappings[os_arch] || os_arch;
 }
 
 // os in [darwin, linux, win32...] (https://nodejs.org/api/os.html#os_os_platform)
 // return value in [darwin, linux, windows]
-function mapOS(os) {
+function mapOS(os_platform) {
     const mappings = {
-        darwin: 'macOS',
+        darwin: 'darwin',
         win32: 'windows',
         linux: 'linux'
     };
-    return mappings[os] || os;
+    return mappings[os_platform] || os_platform;
 }
 
 function getDownloadObject(version) {
-    const platform = os.platform();
-    const filename = `buildenv-${ mapOS(platform) }__${ mapArch(os.arch()) }-${ version }`;
-    const extension = 'tar.gz'; //platform === 'win32' ? 'zip' : 
-    const binPath = platform === 'win32' ? 'bin' : path.join(filename, 'bin');
+    const os_platform = os.platform();
+    const mapped_platform = mapOS(os_platform);
+    const os_arch = os.arch();
+    const mapped_arch = mapArch(os_arch);
+    const filename = `buildenv-${ mapped_platform }_${ mapped_arch }-${ version }`;
+    const extension = 'tar.gz';
+    const binPath = os_platform === 'win32' ? 'bin' : path.join(filename, 'bin');
     const url = `https://github.com/Comcast/Buildenv-Tool/releases/download/${ version }/${ filename }.${ extension }`;
+
+    console.log(`os_platform: ${ os_platform }`);
+    console.log(`mapped_platform: ${ mapped_platform }`)
+    console.log(`os_arch: ${ os_arch }`);
+    console.log(`mapped_arch: ${ mapped_arch }`)
+    console.log(`filename: ${ filename }`)
+    console.log(`binPath: ${ binPath }`)
+    console.log(`url: ${url}`)
     return {
         url,
         binPath
