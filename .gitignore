@@ -38,7 +38,7 @@ bower_components
 build/Release
 
 # Dependency directories
-node_modules/
+#node_modules/  # don't ignore node_modules, see https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action#commit-tag-and-push-your-action-to-github
 jspm_packages/
 
 # Snowpack dependency directory (https://snowpack.dev/)
