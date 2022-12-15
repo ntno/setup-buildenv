@@ -7,7 +7,7 @@ async function setup() {
     try {
         // Get version of tool to be installed
         const version = core.getInput('version');
-        console.log(`buildenv version to install: ${version}!`);
+        console.log(`buildenv version to install: ${version}`);
 
         // Download the specific version of the tool, e.g. as a tarball/zipball
         const download = getDownloadObject(version);
