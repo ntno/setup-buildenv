@@ -4,7 +4,7 @@ description: Setup Comcast Buildenv Tool, buildenv, on GitHub Actions runners
 inputs:
   version:
     description: Version of Comcast Buildenv Tool to install
-    required: false
+    required: true
     default: 0.5.7
 runs:
   using: node16
