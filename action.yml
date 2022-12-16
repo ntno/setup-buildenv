@@ -2,7 +2,7 @@ name: setup-buildenv
 author: ntno
 description: Setup Comcast Buildenv Tool, buildenv, on GitHub Actions runners
 branding:
-  icon: tool
+  icon: tv
   color: blue
 inputs:
   version:
