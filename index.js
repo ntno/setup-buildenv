@@ -18,7 +18,8 @@ async function setup() {
         const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
         const pathToCLI = await extract(pathToTarball);
         console.log(`pathToCLI: ${ pathToCLI }`)
-        const stdout = execSync('ls ${ pathToCLI }');
+        const command_to_execute = `ls ${ pathToCLI }`
+        const stdout = execSync(command_to_execute);
         console.log(stdout)
             // Expose the tool by adding it to the PATH
         core.addPath(path.join(pathToCLI, download.binPath));
