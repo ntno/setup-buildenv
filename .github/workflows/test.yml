@@ -42,6 +42,7 @@ jobs:
       - name: inspect temp
         run: |
           ls -ltra /home/runner/work/_temp/
+          ls -ltra buildenv
           ls -ltra buildenv/bin
           buildenv/bin/buildenv --version
 
