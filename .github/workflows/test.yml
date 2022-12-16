@@ -52,6 +52,11 @@ jobs:
           buildenv --version >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
+          echo "works by path"
+          echo "trying by shortcut"
+          which buildenv
+          buildenv --version
+
       - name: Verify
         shell: python
         env:
