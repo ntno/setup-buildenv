@@ -1,8 +1,10 @@
 const path = require('path');
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
+const exec = require('@actions/exec');
+const io = require('@actions/io');
+
 const { getDownloadObject } = require('./lib/utils');
-const { execSync } = require('child_process');
 
 async function setup() {
     try {
@@ -13,20 +15,29 @@ async function setup() {
         // Download the specific version of the tool, e.g. as a tarball/zipball
         const download = getDownloadObject(version);
         const pathToTarball = await tc.downloadTool(download.url);
+        console.log(`pathToTarball: ${ pathToTarball }`)
 
         // Extract the tarball/zipball onto host runner
         const pathToCLI = await tc.extractTar(pathToTarball, download.binPath);
+        console.log(`pathToCLI: ${ pathToCLI }`)
+        console.log(`download.binPath: ${ download.binPath }`)
 
         // await io.cp('path/to/directory', , options);
+        // const binPath: string = '/home/runner/bin';
+        // await io.mkdirP(binPath);
 
+        await exec.exec('chmod', ['+x', download.binPath]);
+        // await io.mv(downloadPath, path.join(binPath, 'minikube'));
 
-        const command_to_execute_1 = `ls -ltra ${ pathToCLI }`
-        const stdout_1 = execSync(command_to_execute_1);
-        console.log(stdout_1)
+        core.addPath(download.binPath);
 
-        const command_to_execute_2 = `echo $PATH`
-        const stdout_2 = execSync(command_to_execute_2);
-        console.log(stdout_2)
+        // const command_to_execute_1 = `ls -ltra ${ pathToCLI }`
+        // const stdout_1 = execSync(command_to_execute_1);
+        // console.log(stdout_1)
+
+        // const command_to_execute_2 = `echo $PATH`
+        // const stdout_2 = execSync(command_to_execute_2);
+        // console.log(stdout_2)
 
         // Expose the tool by adding it to the PATH
         // core.addPath(path.join(pathToCLI, download.binPath));
