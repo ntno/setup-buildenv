@@ -1,0 +1,62 @@
+name: Test Buildenv Install
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    name: Test Install
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest, ubuntu-latest]
+        version: [0.5.7]
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Rebuild the dist/ directory
+        run: npm run prepare
+
+      - name: Setup buildenv
+        uses: ./
+        with:
+          version: ${{ matrix.version }}
+
+      - name: Inspect Install
+        run: |
+          echo $BUILDENV_CLI_PATH
+          which buildenv
+          ls -ltra $BUILDENV_CLI_PATH
+
+      - name: Check Installed Version
+        run: |
+          export BUILDENV_VERSION=$( buildenv --version )
+          echo 'BUILDENV_VERSION_INSTALLED<<EOF' >> $GITHUB_ENV
+          buildenv --version >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Verify Version
+        shell: python
+        env:
+          BUILDENV_VERSION_EXPECTED: ${{ matrix.version }}
+        run: |
+          import sys, os
+          sys.exit(
+              int(not os.environ["BUILDENV_VERSION_EXPECTED"] in os.environ["BUILDENV_VERSION_INSTALLED"])
+          )

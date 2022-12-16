@@ -1,0 +1,11 @@
+version: '3'
+services:
+  local_development_server:
+    image: node:16
+    restart: "no"
+    volumes:  
+      - './:/usr/src/'
+    working_dir: /usr/src/
+    environment:
+      RUNNER_TEMP: /tmp
+      ACTIONS_RUNNER_DEBUG: true
