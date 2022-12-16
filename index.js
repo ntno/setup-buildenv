@@ -18,18 +18,19 @@ async function setup() {
         console.log(`pathToTarball: ${ pathToTarball }`)
 
         // Extract the tarball/zipball onto host runner
-        const pathToCLI = await tc.extractTar(pathToTarball, download.binPath);
-        console.log(`pathToCLI: ${ pathToCLI }`)
-        console.log(`download.binPath: ${ download.binPath }`)
+
+        const cli_directory_path = await tc.extractTar(pathToTarball, download.binPath);
+
+        core.exportVariable('BUILDENV_CLI_PATH', download.toolPath);
 
         // await io.cp('path/to/directory', , options);
         // const binPath: string = '/home/runner/bin';
         // await io.mkdirP(binPath);
 
-        await exec.exec('chmod', ['+x', download.binPath]);
+        // await exec.exec('chmod', ['+x', download.binPath]);
         // await io.mv(downloadPath, path.join(binPath, 'minikube'));
 
-        core.addPath(download.binPath);
+        core.addPath(download.toolPath);
 
         // const command_to_execute_1 = `ls -ltra ${ pathToCLI }`
         // const stdout_1 = execSync(command_to_execute_1);
