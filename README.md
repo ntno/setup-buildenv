@@ -12,3 +12,4 @@ GitHub Action to install Comcast's buildenv tool on GitHub's hosted runners, usi
 - [repo: example cli action](https://github.com/github-developer/example-setup-gh)  
 - [creating-a-javascript-action](https://docs.github.com/en/actions/creating-actions/creating-a-javascript-action) . 
 - [repo: example javascript action](https://github.com/actions/javascript-action)  
+- [core](https://github.com/actions/toolkit/tree/main/packages/core)
