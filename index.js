@@ -25,7 +25,7 @@ async function setup() {
         console.log(stdout_1)
 
         const command_to_execute_2 = `echo $PATH`
-        const stdout_2 = execSync(command_to_execute_1);
+        const stdout_2 = execSync(command_to_execute_2);
         console.log(stdout_2)
 
         // Expose the tool by adding it to the PATH
