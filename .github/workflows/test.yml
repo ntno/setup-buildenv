@@ -48,7 +48,7 @@ jobs:
 
       - name: Capture buildenv version installed
         run: |
-          export BUILDENV_VERSION=$( buildenv --version )
+          export BUILDENV_VERSION=$( buildenv/bin/buildenv --version )
           echo 'BUILDENV_VERSION_INSTALLED<<EOF' >> $GITHUB_ENV
           buildenv --version >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
