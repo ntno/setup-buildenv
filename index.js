@@ -1,8 +1,5 @@
-const path = require('path');
 const core = require('@actions/core');
 const tc = require('@actions/tool-cache');
-const exec = require('@actions/exec');
-const io = require('@actions/io');
 
 const { getDownloadObject } = require('./lib/utils');
 
