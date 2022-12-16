@@ -13,17 +13,23 @@ async function setup() {
         // Download the specific version of the tool, e.g. as a tarball/zipball
         const download = getDownloadObject(version);
         const pathToTarball = await tc.downloadTool(download.url);
-        //const pathToBuildEnv = '/usr/local/bin/buildenv';
-        // Extract the tarball/zipball onto host runner
 
+        // Extract the tarball/zipball onto host runner
         const pathToCLI = await tc.extractTar(pathToTarball, download.binPath);
 
+        // await io.cp('path/to/directory', , options);
 
-        const command_to_execute = `ls ${ pathToCLI }`
-        const stdout = execSync(command_to_execute);
-        console.log(stdout)
-            // Expose the tool by adding it to the PATH
-        core.addPath(path.join(pathToCLI, download.binPath));
+
+        const command_to_execute_1 = `ls -ltra ${ pathToCLI }`
+        const stdout_1 = execSync(command_to_execute_1);
+        console.log(stdout_1)
+
+        const command_to_execute_2 = `echo $PATH`
+        const stdout_2 = execSync(command_to_execute_1);
+        console.log(stdout_2)
+
+        // Expose the tool by adding it to the PATH
+        // core.addPath(path.join(pathToCLI, download.binPath));
     } catch (e) {
         core.setFailed(e);
     }
