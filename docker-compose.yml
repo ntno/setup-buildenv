@@ -9,4 +9,3 @@ services:
     environment:
       RUNNER_TEMP: /tmp
       ACTIONS_RUNNER_DEBUG: true
-    #entrypoint: [ "/usr/src/entrypoint.sh" ]
