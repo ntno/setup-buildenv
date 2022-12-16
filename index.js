@@ -30,7 +30,7 @@ async function setup() {
         // await exec.exec('chmod', ['+x', download.binPath]);
         // await io.mv(downloadPath, path.join(binPath, 'minikube'));
 
-        core.addPath(download.toolPath);
+        core.addPath(cli_directory_path);
 
         // const command_to_execute_1 = `ls -ltra ${ pathToCLI }`
         // const stdout_1 = execSync(command_to_execute_1);
