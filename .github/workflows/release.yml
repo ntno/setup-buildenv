@@ -1,13 +1,4 @@
-# `dist/index.js` is a special file in Actions.
-# When you reference an action with `uses:` in a workflow,
-# `index.js` is the code that will run.
-# For our project, we generate this file through a build process from other source files.
-# We need to make sure the checked-in `index.js` actually matches what we expect it to be.
-#
-# source repo: actions/javascript-action
-# source url: https://github.com/actions/javascript-action/blob/main/.github/workflows/check-dist.yml
-
-name: Check dist/
+name: Release Buildenv Setup Action
 
 on:
   push:
@@ -18,12 +9,37 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
-  workflow_dispatch:
 
 jobs:
-  check-dist:
-    runs-on: ubuntu-latest
+  # # TODO
+  # release: 
+  #   runs-on: ubuntu-latest
+  #   needs: check-dist
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: Create release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.github_token }} # This token is provided by Actions, you do not need to create your own token
+  #       with:
+  #         tag_name: ${{ github.run_number }}
+  #         release_name: Release ${{ github.run_number }}
+  #         body: New release for ${{ github.sha }}. Release notes can be found in the docs.
+  #         draft: false
+  #         prerelease: false
 
+  check-dist:
+    # `dist/index.js` is a special file in Actions.
+    # When you reference an action with `uses:` in a workflow,
+    # `index.js` is the code that will run.
+    # For our project, we generate this file through a build process from other source files.
+    # We need to make sure the checked-in `index.js` actually matches what we expect it to be.
+    #
+    # source repo: actions/javascript-action
+    # source url: https://github.com/actions/javascript-action/blob/main/.github/workflows/check-dist.yml
+
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
