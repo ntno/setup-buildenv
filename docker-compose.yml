@@ -8,4 +8,5 @@ services:
     working_dir: /usr/src/
     environment:
       RUNNER_TEMP: /tmp
+      ACTIONS_RUNNER_DEBUG: true
     #entrypoint: [ "/usr/src/entrypoint.sh" ]
