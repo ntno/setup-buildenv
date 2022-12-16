@@ -39,6 +39,12 @@ jobs:
         with:
           version: ${{ matrix.version }}
 
+      - name: inspect temp
+        run: |
+          ls -ltra /home/runner/work/_temp/
+          /home/runner/work/_temp/73f612f8-2c94-46c6-bd58-3fd1ca4d8dcc --version
+
+
       - name: Capture buildenv version installed
         run: |
           export BUILDENV_VERSION=$( buildenv --version )

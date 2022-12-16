@@ -9,6 +9,7 @@ const path = __webpack_require__(622);
 const core = __webpack_require__(186);
 const tc = __webpack_require__(784);
 const { getDownloadObject } = __webpack_require__(918);
+const { execSync } = __webpack_require__(129);
 
 async function setup() {
     try {
@@ -23,8 +24,10 @@ async function setup() {
         // Extract the tarball/zipball onto host runner
         const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
         const pathToCLI = await extract(pathToTarball);
-
-        // Expose the tool by adding it to the PATH
+        console.log(`pathToCLI: ${ pathToCLI }`)
+        const stdout = execSync('ls ${ pathToCLI }');
+        console.log(stdout)
+            // Expose the tool by adding it to the PATH
         core.addPath(path.join(pathToCLI, download.binPath));
     } catch (e) {
         core.setFailed(e);
@@ -42,6 +45,7 @@ if (require.main === require.cache[eval('__filename')]) {
 /***/ 918:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
+const core = __webpack_require__(186);
 const os = __webpack_require__(87);
 const path = __webpack_require__(622);
 
@@ -77,13 +81,13 @@ function getDownloadObject(version) {
     const binPath = os_platform === 'win32' ? 'bin' : path.join(filename, 'bin');
     const url = `https://github.com/Comcast/Buildenv-Tool/releases/download/${ version }/${ filename }.${ extension }`;
 
-    console.log(`os_platform: ${ os_platform }`);
-    console.log(`mapped_platform: ${ mapped_platform }`)
-    console.log(`os_arch: ${ os_arch }`);
-    console.log(`mapped_arch: ${ mapped_arch }`)
-    console.log(`filename: ${ filename }`)
-    console.log(`binPath: ${ binPath }`)
-    console.log(`url: ${url}`)
+    core.debug(`os_platform: ${ os_platform }`);
+    core.debug(`mapped_platform: ${ mapped_platform }`)
+    core.debug(`os_arch: ${ os_arch }`);
+    core.debug(`mapped_arch: ${ mapped_arch }`)
+    core.debug(`filename: ${ filename }`)
+    core.debug(`binPath: ${ binPath }`)
+    core.debug(`url: ${url}`)
     return {
         url,
         binPath
