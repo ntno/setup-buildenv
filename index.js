@@ -13,11 +13,12 @@ async function setup() {
         // Download the specific version of the tool, e.g. as a tarball/zipball
         const download = getDownloadObject(version);
         const pathToTarball = await tc.downloadTool(download.url);
-
+        //const pathToBuildEnv = '/usr/local/bin/buildenv';
         // Extract the tarball/zipball onto host runner
-        const extract = download.url.endsWith('.zip') ? tc.extractZip : tc.extractTar;
-        const pathToCLI = await extract(pathToTarball);
-        console.log(`pathToCLI: ${ pathToCLI }`)
+
+        const pathToCLI = await tc.extractTar(pathToTarball, download.binPath);
+
+
         const command_to_execute = `ls ${ pathToCLI }`
         const stdout = execSync(command_to_execute);
         console.log(stdout)
