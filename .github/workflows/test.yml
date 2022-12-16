@@ -1,11 +1,10 @@
 name: Test Buildenv Install
-on: [push]
 
-# on:
-#   push:
-#     branches:
-#     - main
-#   pull_request:
+on:
+  push:
+    branches:
+    - main
+  pull_request:
 
 defaults:
   run:
@@ -18,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [macos-latest, windows-latest, ubuntu-latest]
-        version: [0.5.7]
+        version: [0.5.6, 0.5.7]
     steps:
       - uses: actions/checkout@v3
 
@@ -39,25 +38,20 @@ jobs:
         with:
           version: ${{ matrix.version }}
 
-      - name: inspect temp
+      - name: Inspect Install
         run: |
           echo $BUILDENV_CLI_PATH
-          $BUILDENV_CLI_PATH --version
+          which buildenv
+          ls -ltra $BUILDENV_CLI_PATH
 
-
-      - name: Capture buildenv version installed
+      - name: Check Installed Version
         run: |
-          export BUILDENV_VERSION=$( $BUILDENV_CLI_PATH --version )
+          export BUILDENV_VERSION=$( buildenv --version )
           echo 'BUILDENV_VERSION_INSTALLED<<EOF' >> $GITHUB_ENV
           buildenv --version >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
-          echo "works by path"
-          echo "trying by shortcut"
-          which buildenv
-          buildenv --version
-
-      - name: Verify
+      - name: Verify Version
         shell: python
         env:
           BUILDENV_VERSION_EXPECTED: ${{ matrix.version }}
