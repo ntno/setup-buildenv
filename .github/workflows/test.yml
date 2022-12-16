@@ -41,14 +41,13 @@ jobs:
 
       - name: inspect temp
         run: |
-          ls -ltra /home/runner/bin
-          ls -ltra /home/runner/bin/buildenv/
-          /home/runner/bin/buildenv/buildenv --version
+          echo $BUILDENV_CLI_PATH
+          $BUILDENV_CLI_PATH --version
 
 
       - name: Capture buildenv version installed
         run: |
-          export BUILDENV_VERSION=$( /home/runner/bin/buildenv/buildenv --version )
+          export BUILDENV_VERSION=$( $BUILDENV_CLI_PATH --version )
           echo 'BUILDENV_VERSION_INSTALLED<<EOF' >> $GITHUB_ENV
           buildenv --version >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
