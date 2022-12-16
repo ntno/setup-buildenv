@@ -43,7 +43,7 @@ jobs:
         run: |
           ls -ltra /home/runner/work/_temp/
           ls -ltra buildenv/bin
-          buildenv --version
+          buildenv/bin/buildenv --version
 
 
       - name: Capture buildenv version installed
