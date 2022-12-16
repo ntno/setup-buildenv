@@ -26,6 +26,7 @@ async function setup() {
         core.exportVariable('BUILDENV_CLI_PATH', download.toolPath);
         core.addPath(cli_directory_path);
     } catch (e) {
+        console.log(e);
         core.setFailed(e);
     }
 }
